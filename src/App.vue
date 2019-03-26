@@ -1,7 +1,10 @@
 <template>
   <div id="app">
     <Header></Header>
-    <PostList></PostList>
+    <div class="main">
+      <PostList></PostList>
+    </div>
+
 
   </div>
 </template>
@@ -21,21 +24,26 @@ export default {
 
 
 <style>
-
 body,
 ul,
 ol {
 	margin: 0;
 	padding: 0;
 }
-
 li {
 	list-style: none;
-} 
-
+}
 a {
 	color: inherit;
 	text-decoration: none;
 }
 
+body {
+  background-color: #e1e1e1;
+}
+.main{
+  width: 80%;
+  margin: 0 auto;
+
+}
 </style>

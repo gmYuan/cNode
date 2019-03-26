@@ -29,10 +29,10 @@
             <span class="reply">{{pst.reply_count}}</span>
             <span class="seperator">/</span>
             <span class="scan">{{pst.visit_count}}</span>
-            
           </span>
-          <span class="type top">
-            置顶  
+
+          <span class="type" :class="[{top: (pst.top === true)}, {good: (pst.good === true)}]">
+            {{pst | typemsg}}
           </span>
           <span class="title">
             <a href="javascript:;">
@@ -40,7 +40,7 @@
             </a>
           </span>
           <span class="time">
-            {{pst.last_reply_at}}
+            {{pst.last_reply_at | seetime}}
           </span> 
         </li>
        
@@ -115,6 +115,9 @@ export default {
   font-size: 14px;
   word-break: break-word;
 }
+.topic:hover{
+  color: #005580;
+}
 .topic.active{
   padding: 3px 4px;
   border-radius: 3px;
@@ -153,7 +156,7 @@ export default {
 
 .num {
   display: inline-block;
-  min-width: 70px;
+  min-width: 90px;
   line-height: 28px;
   text-align: center;
   margin-right: 3px;
@@ -179,7 +182,7 @@ export default {
   background-color: #e5e5e5;
 }
 .type.top,
-.tyoe.good {
+.type.good {
   color: #fff;
   background: #80bd01;
 }
