@@ -29,4 +29,13 @@ ol {
 	padding: 0;
 }
 
+li {
+	list-style: none;
+} 
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
 </style>
