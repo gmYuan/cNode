@@ -29,19 +29,20 @@
             <span class="reply">{{pst.reply_count}}</span>
             <span class="seperator">/</span>
             <span class="scan">{{pst.visit_count}}</span>
+            
           </span>
-
-          <span class="type" :class="[{top: (pst.top === true)}, {good: (pst.good === true)}]">
-            {{pst | typemsg}}
+          <span class="type top">
+            置顶  
           </span>
           <span class="title">
-            <a href="javascript:;">
-               {{pst.title}}
-            </a>
+            <router-link :to="{name: 'article', params:{postid: pst.id}}"> 
+              {{pst.title}}
+            </router-link> 
           </span>
+
           <span class="time">
-            {{pst.last_reply_at | seetime}}
-          </span> 
+            {{pst.last_reply_at}}
+          </span>   
         </li>
        
       </ul>
@@ -115,9 +116,6 @@ export default {
   font-size: 14px;
   word-break: break-word;
 }
-.topic:hover{
-  color: #005580;
-}
 .topic.active{
   padding: 3px 4px;
   border-radius: 3px;
@@ -156,7 +154,7 @@ export default {
 
 .num {
   display: inline-block;
-  min-width: 90px;
+  min-width: 70px;
   line-height: 28px;
   text-align: center;
   margin-right: 3px;
@@ -182,7 +180,7 @@ export default {
   background-color: #e5e5e5;
 }
 .type.top,
-.type.good {
+.tyoe.good {
   color: #fff;
   background: #80bd01;
 }

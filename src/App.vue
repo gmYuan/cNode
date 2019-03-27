@@ -2,7 +2,7 @@
   <div id="app">
     <Header></Header>
     <div class="main">
-      <PostList></PostList>
+      <router-view></router-view>
     </div>
 
 
@@ -13,6 +13,7 @@
 
 import Header from './components/Header'
 import PostList from './components/postList'
+
 export default {
   name: 'App',
   components: {
