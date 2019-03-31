@@ -41,7 +41,7 @@
           </span>
 
           <span class="time">
-            {{pst.last_reply_at}}
+            {{pst.last_reply_at | seetime}}
           </span>   
         </li>
        

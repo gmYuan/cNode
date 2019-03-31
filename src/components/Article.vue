@@ -37,17 +37,34 @@
 				<!-- 2.1-2 评论回复部分 -->
     		<div class="review-wrap">
     			<div class="review-title">
-    				82回复
+    				84回复
     			</div>
-
     			<!-- 评论主体部分列表项 -->
     			<div class="review">
     				<div class="line-info">
-    					<div class="user-info"></div>
-    					<div class="zan"></div>
+    					<div class="user-info">
+                <a href="javascript:;" class="pic-wrap">
+                  <img src="../assets/aur.jpg" alt="">
+                </a>
+                <a href="javascript:;" class="name">
+                  <span>zdingfeng</span>
+                </a>
+                <a href="javascript:;" class="time">
+                  2楼•7 个月前
+                </a>
+              </div>
+    					<div class="zan">
+                <!--<img src="../assets/zan.svg" alt="" class="btn-zan">-->
+                <i class="btn-zan"></i>
+                <span class="up-count">1</span>
+              </div>
     				</div>
-    				
-    				<div class="reply-content"></div>
+    				<!-- 评论正文部分-->
+    				<div class="reply-content">
+              <div class="markdown-text">
+                <p>不了解egg  刚学会koa，哪里有egg的视频教程推荐一下  老铁们</p>
+              </div>
+            </div>
     			</div>
     		</div>
 
@@ -56,6 +73,7 @@
     	<!-- 2.2 aside部分 -->
 
     </main>
+
   </div>
 </template>
 
@@ -84,7 +102,6 @@ export default {
 .content {
 	margin-right: 305px;
 }
-
 
 /* 帖子标题 + 内容描述  */
 .post-content {
@@ -133,10 +150,79 @@ export default {
 	margin: 0 10px;
 }
 
-
 /* 评论部分  */
-.review {
+.review-wrap {
+  margin-bottom: 13px;
+}
+.review-title {
+  padding: 10px;
+  color: #444;
+  background-color: #f6f6f6;
+  border-radius: 3px 3px 0 0;
+}
 
+.review{
+  padding: 10px;
+  border-top: 1px solid #f0f0f0;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333;
+  background: #fff;
+}
+.line-info {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+.user-info {
+  display: flex;
+  align-items: flex-start;
+}
+.user-info img {
+  width: 30px;
+  height: 30px;
+  border-radius: 3px;
+}
+.user-info .name {
+  margin-left: 10px;
+  color: #666;
+  font-size: 12px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.user-info .time {
+  padding-left: 5px;
+  font-size: 11px;
+  color: #08c;
+}
+
+.zan {
+  font-size: 15px;
+  display: flex;
+  align-items: flex-start;
+}
+.btn-zan {
+  display: inline-block;
+  margin-right: 5px;
+  width: 16px;
+  height: 17px;
+  opacity: .4;
+  background: url("../assets/zan.svg") no-repeat ;
+  background-size: cover;
+  cursor: pointer;
+}
+.btn-zan:hover {
+  color: #000;
+  opacity: .6;
+}
+.up-count{
+  color: gray;
+}
+.reply-content {
+  margin-top: -25px;
+  padding-left: 50px;
+  color: #333;
 }
 
 

@@ -11,12 +11,16 @@ export default new Router({
   	{
   		name: 'root',
   		path: '/',
-  		component: postList
+  		components: {
+  		  main: postList
+      }
   	},
   	{
   		name: 'article',
   		path: '/topic/:postid',
-  		component: Article
+  		components: {
+  		  articleMain: Article
+  		}
   	}
 
   ]
