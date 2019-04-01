@@ -16,26 +16,21 @@
     			<div class="title-wrap">
     				<div class="title">{{post.title}}</div>
     				<ul class="info">
-    					<li>发布于 {{post.create_at | seetime}}</span>
+    					<li>发布于 {{post.create_at|seetime}}</li>
     					<li>
-                作者 
-                <a href="javascript:;" class="autor">
-                  {{post.author.loginname}}
+                <span>作者</span>
+                <a href="javascript:;">
+                  {{loginname}}
                 </a>
               </li>
 
     					<li>{{post.visit_count}} 次浏览 </li>
-    					<li>来自 {{post.tab | typemsg}} </li>
+    					<li>来自 {{post | articleType}} </li>
     				</ul>
     			</div>
 					<!-- 发帖内容描述 -->
     			<div class="text">
-    				<div class="inner-wrap">
-    					<div class="markdown-text">
-    						<p>Egg.js现在用的人多吗？那些公司在用有知道的吗？</p>
-    						<p>同上，老铁们出来吧。</p>
-    						
-    					</div>
+    				<div class="inner-wrap markdown-body" v-html="post.content">
     				</div>	
     			</div>
     		</div>
@@ -43,7 +38,7 @@
 				<!-- 2.1-2 评论回复部分 -->
     		<div class="review-wrap">
     			<div class="review-title">
-    				84回复
+            {{post.reply_count}} 回复
     			</div>
     			<!-- 评论主体部分列表项 -->
     			<div class="review">
@@ -60,14 +55,13 @@
                 </a>
               </div>
     					<div class="zan">
-                <!--<img src="../assets/zan.svg" alt="" class="btn-zan">-->
                 <i class="btn-zan"></i>
                 <span class="up-count">1</span>
               </div>
     				</div>
     				<!-- 评论正文部分-->
     				<div class="reply-content">
-              <div class="markdown-text">
+              <div>
                 <p>不了解egg  刚学会koa，哪里有egg的视频教程推荐一下  老铁们</p>
               </div>
             </div>
@@ -84,12 +78,16 @@
 </template>
 
 <script>
+
+import 'github-markdown-css';
+
 export default {
   name: "Article",
   data(){
   	return {
   		isLoading: false,
-      post: {}
+      post: {},
+      loginname: ''
   	}
   },
 
@@ -99,6 +97,7 @@ export default {
       .then(res => {
         this.isLoading = false
         this.post = res.data.data
+        this.loginname = this.post.author.loginname
         console.log(this.post)
       })
       .catch(err => {
@@ -249,6 +248,5 @@ export default {
   padding-left: 50px;
   color: #333;
 }
-
 
 </style>

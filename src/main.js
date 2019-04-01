@@ -8,13 +8,6 @@ import Axios from 'axios'
 Vue.prototype.$http = Axios
 Vue.config.productionTip = false;
 
-/* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
-})
 
 Vue.filter("typemsg", function (data) {
   if (data.top === true) {
@@ -22,6 +15,16 @@ Vue.filter("typemsg", function (data) {
   } else if (data.good === true){
     return '精华'
   } else if (data.tab === 'share'){
+    return '分享'
+  } else if (data.tab === 'ask') {
+    return '问答'
+  } else if (data.tab === 'job') {
+    return '招聘'
+  }
+})
+
+Vue.filter('articleType', function (data) {
+  if (data.tab === 'share'){
     return '分享'
   } else if (data.tab === 'ask') {
     return '问答'
@@ -53,3 +56,11 @@ Vue.filter('seetime', function (str) {
     }
   }
 )
+
+/* eslint-disable no-new */
+new Vue({
+  el: '#app',
+  router,
+  components: { App },
+  template: '<App/>'
+})
