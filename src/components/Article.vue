@@ -14,12 +14,18 @@
     		<div class="post-content">
     			<!-- 整个标题 -->
     			<div class="title-wrap">
-    				<div class="title">Egg.js现在用的人多吗？那些公司在用有知道的吗？</div>
+    				<div class="title">{{post.title}}</div>
     				<ul class="info">
-    					<li>发布于 7个月前</span>
-    					<li>作者 <a href="javascript:;" class="autor">nodeper</a></li>
-    					<li>7930 次浏览 </li>
-    					<li>来自 问答 </li>
+    					<li>发布于 {{post.create_at | seetime}}</span>
+    					<li>
+                作者 
+                <a href="javascript:;" class="autor">
+                  {{post.author.loginname}}
+                </a>
+              </li>
+
+    					<li>{{post.visit_count}} 次浏览 </li>
+    					<li>来自 {{post.tab | typemsg}} </li>
     				</ul>
     			</div>
 					<!-- 发帖内容描述 -->
@@ -82,8 +88,27 @@ export default {
   name: "Article",
   data(){
   	return {
-  		isLoading: false
+  		isLoading: false,
+      post: {}
   	}
+  },
+
+  methods: {
+    getArticle(){
+      this.$http.get(`https://cnodejs.org/api/v1/topic/${this.$route.params.postid}`)
+      .then(res => {
+        this.isLoading = false
+        this.post = res.data.data
+        console.log(this.post)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+  },
+  beforeMount(){
+    this.isLoading = true
+    this.getArticle()
   }
 
 }

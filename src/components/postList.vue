@@ -31,8 +31,8 @@
             <span class="scan">{{pst.visit_count}}</span>
             
           </span>
-          <span class="type top">
-            置顶  
+          <span class="type" :class="[{top: pst.top===true}, {good: pst.good===true}]">
+            {{pst | typemsg}}
           </span>
           <span class="title">
             <router-link :to="{name: 'article', params:{postid: pst.id}}"> 
@@ -180,7 +180,7 @@ export default {
   background-color: #e5e5e5;
 }
 .type.top,
-.tyoe.good {
+.type.good {
   color: #fff;
   background: #80bd01;
 }
