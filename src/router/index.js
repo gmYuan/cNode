@@ -19,7 +19,7 @@ export default new Router({
   		name: 'article',
   		path: '/topic/:postid',
   		components: {
-  		  articleMain: Article
+  		  main: Article
   		}
   	}
 

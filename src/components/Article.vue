@@ -41,29 +41,27 @@
             {{post.reply_count}} 回复
     			</div>
     			<!-- 评论主体部分列表项 -->
-    			<div class="review">
+    			<div class="review" v-for="(review,index) in post.replies">
     				<div class="line-info">
     					<div class="user-info">
                 <a href="javascript:;" class="pic-wrap">
-                  <img src="../assets/aur.jpg" alt="">
+                  <img :src="review.author.avatar_url" alt="评论人">
                 </a>
                 <a href="javascript:;" class="name">
-                  <span>zdingfeng</span>
+                  <span>{{review.author.loginname}}</span>
                 </a>
                 <a href="javascript:;" class="time">
-                  2楼•7 个月前
+                  {{index+1}}楼•{{review.create_at | seetime}}
                 </a>
               </div>
     					<div class="zan">
                 <i class="btn-zan"></i>
-                <span class="up-count">1</span>
+                <span class="up-count" v-if="review.ups.length>0">{{review.ups.length}}</span>
               </div>
     				</div>
     				<!-- 评论正文部分-->
     				<div class="reply-content">
-              <div>
-                <p>不了解egg  刚学会koa，哪里有egg的视频教程推荐一下  老铁们</p>
-              </div>
+              <div class="markdown-body" v-html="review.content"></div>
             </div>
     			</div>
     		</div>
@@ -244,9 +242,13 @@ export default {
   color: gray;
 }
 .reply-content {
-  margin-top: -25px;
+  margin-top: -10px;
   padding-left: 50px;
-  color: #333;
+
+  font-size: 13px;
+  color: rgb(51, 51, 51);
+  line-height: 20px;
+  
 }
 
 </style>
