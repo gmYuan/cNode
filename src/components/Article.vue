@@ -19,9 +19,12 @@
     					<li>发布于 {{post.create_at|seetime}}</li>
     					<li>
                 <span>作者</span>
-                <a href="javascript:;">
-                  {{loginname}}
-                </a>
+                <router-link :to="{name:'userInfo',params:{user: loginname}}">
+                  <span class="autor">
+                    {{loginname}}
+                  </span>
+                </router-link>
+
               </li>
 
     					<li>{{post.visit_count}} 次浏览 </li>
@@ -44,12 +47,18 @@
     			<div class="review" v-for="(review,index) in post.replies">
     				<div class="line-info">
     					<div class="user-info">
-                <a href="javascript:;" class="pic-wrap">
-                  <img :src="review.author.avatar_url" alt="评论人">
-                </a>
-                <a href="javascript:;" class="name">
-                  <span>{{review.author.loginname}}</span>
-                </a>
+                <router-link :to="{name:'userInfo',params:{user: review.author.loginname}}">
+                  <span class="pic-wrap">
+                    <img :src="review.author.avatar_url" alt="评论人">
+                  </span>
+                </router-link>
+
+                <router-link :to="{name:'userInfo',params:{user: review.author.loginname}}">
+                   <span class="name">
+                    {{review.author.loginname}}
+                  </span>
+                </router-link>
+
                 <a href="javascript:;" class="time">
                   {{index+1}}楼•{{review.create_at | seetime}}
                 </a>
@@ -109,7 +118,6 @@ export default {
   }
 
 }
-
 </script>
 
 <style scoped>
@@ -152,7 +160,7 @@ export default {
   color: #838383;
   overflow: hidden;
 }
-.info li a.autor:hover {
+.info li .autor:hover {
 	text-decoration: underline;
 	cursor: pointer;
 }
@@ -245,7 +253,7 @@ export default {
   margin-top: -10px;
   padding-left: 50px;
 
-  font-size: 13px;
+  font-size: 1px;
   color: rgb(51, 51, 51);
   line-height: 20px;
   
