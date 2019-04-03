@@ -105,7 +105,6 @@ export default {
         this.isLoading = false
         this.post = res.data.data
         this.loginname = this.post.author.loginname
-        console.log(this.post)
       })
       .catch(err => {
         console.log(err)

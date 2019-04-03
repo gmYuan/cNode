@@ -23,30 +23,86 @@
           </div>
           <div class="user-info">
             <div class="avatar">
-              <img src="../assets/aur.jpg" alt="个人信息">
-              <span class="text">lisniuse</span>
+              <img :src="userinfo.avatar_url" alt="个人信息">
+              <span class="text">{{userinfo.loginname}}</span>
             </div>
             <div class="account-info">
               <ul>
-                <li>
-                  <span class="points">130</span>
+                <li class="points">
+                  <span>{{userinfo.score}}</span>
                   <span>积分</span>
                 </li>
-                <li>
+                <li class="github-wrap">
                   <i class="github"></i>
                   <a href="javascript:;" class="text">
-                    @lisniuse
+                    @{{userinfo.githubUsername}}
                   </a>
                 </li>
               </ul>
             </div>
             <div class="account-time">
-              注册时间 2 年前
+              注册时间 {{userinfo.create_at | seetime}}
             </div>
           </div>
         </section>
 
         <!--最近创建的话题部分-->
+        <section class="wrap">
+          <div class="header">
+            <span class="title">最近创建的话题</span>
+          </div>
+          <div class="cell" v-for="item in userinfo.recent_topics">
+            <div class="pic-wrap">
+              <a href="javascript:;">
+                <img :src="item.author.avatar_url" alt="个人头像">
+              </a>
+            </div>
+            <div class="scan-wrap">
+              <span class="review-count">2</span>
+              <span class="seperator">/</span>
+              <span class="scan-count">268</span>
+            </div>
+            <div class="post-wrap">
+              <a href="javascript:;">
+                {{item.title}}
+              </a>
+            </div>
+            <div class="time-wrap">
+              <a class="active-time">
+                {{item.last_reply_at | seetime}}
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- 最近参与的话题部分 -->
+         <section class="wrap">
+          <div class="header">
+            <span class="title">最近参与的话题</span>
+          </div>
+          <div class="cell" v-for="item in userinfo.recent_replies">
+            <div class="pic-wrap">
+              <a href="javascript:;">
+                <img :src="item.author.avatar_url" alt="个人头像">
+              </a>
+            </div>
+            <div class="scan-wrap">
+              <span class="review-count">2</span>
+              <span class="seperator">/</span>
+              <span class="scan-count">268</span>
+            </div>
+            <div class="post-wrap">
+              <a href="javascript:;">
+                 {{item.title}}
+              </a>
+            </div>
+            <div class="time-wrap">
+              <a class="active-time">
+                {{item.last_reply_at | seetime}}
+              </a>
+            </div>
+          </div>
+        </section>
 
 
       </div>
@@ -61,6 +117,31 @@
 
 export default {
   name: "UserInfo",
+  data(){
+    return {
+      isLoading: false,
+      userinfo: {}
+    }
+  },
+  methods: {
+    getData(){
+      this.isLoading = false
+      console.log(this.$route.params.user)
+      this.$http.get(`https://cnodejs.org/api/v1/user/${this.$route.params.user}`)
+      .then( (res) => {
+        this.userinfo = res.data.data
+        console.log(this.userinfo)
+      })
+      .catch( (err) => {
+        console.log(err)  
+      })
+    }
+  },
+  beforeMount(){
+    this.isLoading = true
+    this.getData()
+  }
+
 
 }
 
@@ -76,7 +157,7 @@ body {
   font-size: 14px;
   line-height: 20px;
   word-break: break-word;
-   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 
@@ -90,16 +171,17 @@ body {
 
 .content {
   margin-right: 305px;
+  font-size: 14px;
 }
 
 /* 个人中心组建内容  */
 .wrap {
   margin-bottom: 13px;
-  border-radius: 3px;
 }
 .header {
   padding: 10px;
   background-color: #f6f6f6;
+  border-radius: 3px 3px 0 0;
 }
 
 .breadcrumb li a {
@@ -110,11 +192,13 @@ body {
   padding: 0 5px;
   color: #ccc;
 }
+
 .user-info {
   padding: 10px;
   line-height: 2em;
   border-top: 1px solid #e5e5e5;
   background-color: #fff;
+  border-radius: 0 0 3px 3px;
 }
 .avatar img{
   display: inline-block;
@@ -125,23 +209,30 @@ body {
   margin-right: 8px;
 }
 .text {
+  font-size: 14px;
   color: #778087;
   word-break: break-word;
   text-overflow: ellipsis;
   overflow: hidden;
 }
 .account-info {
-  margin-top: 20px;
-  margin-bottom: 10px;
+  margin-top: 5px;
 }
 .points {
+  padding: 5px 0;
+  color: #333;
   font-size: 14px;
+}
+.github-wrap {
+  margin-top: -5px;
+  margin-bottom: 3px;
+
 }
 .github {
   display: inline-block;
   background: url("../assets/github.svg") no-repeat;
   background-size: contain;
-  margin-left: 4px;
+  margin-left: 3px;
   width: 1.28571429em;
   min-height: 20px;
   text-align: center;
@@ -152,8 +243,68 @@ body {
   opacity: .7;
 }
 .account-time {
+  font-size: 14px;
   color: #ababab;
   margin: 0 0 10px;
 }
+
+/* 最近创建的话题  */
+
+.title {
+  color: #444;
+}
+
+.cell {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+
+  padding: 10px;
+  font-size: 14px;
+  background: #fff;
+  border-top: 1px solid #f0f0f0;
+}
+.pic-wrap a {
+  display: block;
+  width: 30px;
+  height: 30px;
+}
+.pic-wrap img {
+  width: 100%;
+  border-radius: 3px;
+}
+.scan-wrap {
+  width: 70px;  
+  text-align: center; 
+}
+.review-count {
+  color: #9e78c0;
+}
+.seperator {
+  margin: 0 -3px;
+  font-size: 10px; 
+}
+.scan-count {
+  font-size: 10px;
+  color: #b4b4b4;
+}
+.post-wrap {
+  align-self: center;
+  flex-basis: 70%;
+  flex:1;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow:hidden;
+  font-size: 16px;
+  line-height: 30px;
+  color: #08c;
+}
+.time-wrap {
+  font-size: 11px;
+  margin-left: 20px;
+  color: #777;
+}
+
 
 </style>
