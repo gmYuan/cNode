@@ -34,7 +34,7 @@
                 </li>
                 <li class="github-wrap">
                   <i class="github"></i>
-                  <a href="javascript:;" class="text">
+                  <a class="text link" @click="goGithub(userinfo.githubUsername)">
                     @{{userinfo.githubUsername}}
                   </a>
                 </li>
@@ -53,7 +53,7 @@
           </div>
           <div class="cell" v-for="item in userinfo.recent_topics">
             <div class="pic-wrap">
-              <a href="javascript:;">
+              <a href="#">
                 <img :src="item.author.avatar_url" alt="个人头像">
               </a>
             </div>
@@ -63,9 +63,9 @@
               <span class="scan-count">268</span>
             </div>
             <div class="post-wrap">
-              <a href="javascript:;">
-                {{item.title}}
-              </a>
+              <router-link :to="{name:'article', params:{postid: item.id}}">
+                 {{item.title}} 
+              </router-link>
             </div>
             <div class="time-wrap">
               <a class="active-time">
@@ -82,7 +82,7 @@
           </div>
           <div class="cell" v-for="item in userinfo.recent_replies">
             <div class="pic-wrap">
-              <a href="javascript:;">
+              <a href="#">
                 <img :src="item.author.avatar_url" alt="个人头像">
               </a>
             </div>
@@ -92,9 +92,9 @@
               <span class="scan-count">268</span>
             </div>
             <div class="post-wrap">
-              <a href="javascript:;">
-                 {{item.title}}
-              </a>
+              <router-link :to="{name:'article', params:{postid: item.id}}">
+                 {{item.title}} 
+              </router-link>
             </div>
             <div class="time-wrap">
               <a class="active-time">
@@ -126,15 +126,16 @@ export default {
   methods: {
     getData(){
       this.isLoading = false
-      console.log(this.$route.params.user)
       this.$http.get(`https://cnodejs.org/api/v1/user/${this.$route.params.user}`)
       .then( (res) => {
         this.userinfo = res.data.data
-        console.log(this.userinfo)
       })
       .catch( (err) => {
         console.log(err)  
       })
+    },
+    goGithub(account){
+       window.open(`https://github.com/${account}`,'_blank')
     }
   },
   beforeMount(){
@@ -158,6 +159,10 @@ body {
   line-height: 20px;
   word-break: break-word;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.link {
+  cursor: pointer;
 }
 
 
