@@ -126,7 +126,7 @@ export default {
   methods: {
     getData(){
       this.isLoading = false
-      this.$http.get(`https://cnodejs.org/api/v1/user/${this.$route.params.user}`)
+      this.$http.get(`https://cnodejs.org/api/v1/user/${this.$route.params.userName}`)
       .then( (res) => {
         this.userinfo = res.data.data
       })
