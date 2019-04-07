@@ -47,11 +47,11 @@
     			<div class="review" v-for="(review,index) in post.replies">
     				<div class="line-info">
     					<div class="user-info">
-                <router-link :to="{name:'userInfo',params:{userName: review.author.loginname}}">
+                  <router-link :to="{name:'userInfo',params:{userName: review.author.loginname}}">
                   <span class="pic-wrap">
                     <img :src="review.author.avatar_url" alt="评论人">
                   </span>
-                </router-link>
+                  </router-link>
 
                 <router-link :to="{name:'userInfo',params:{userName: review.author.loginname}}">
                    <span class="name">
@@ -94,7 +94,8 @@ export default {
   	return {
   		isLoading: false,
       post: {},
-      loginname: ''
+      loginname: '',
+      hasData: false
   	}
   },
 

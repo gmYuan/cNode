@@ -57,11 +57,12 @@
                 <img :src="item.author.avatar_url" alt="个人头像">
               </a>
             </div>
-            <div class="scan-wrap">
-              <span class="review-count">2</span>
-              <span class="seperator">/</span>
-              <span class="scan-count">268</span>
-            </div>
+            <!-- 回复和浏览人数-->
+            <!--<div class="scan-wrap">-->
+              <!--<span class="review-count">{{getReplay(item.id)}}</span>-->
+              <!--<span class="seperator">/</span>-->
+              <!--<span class="scan-count">{{getVisit(item.id)}}</span>-->
+            <!--</div>-->
             <div class="post-wrap">
               <router-link :to="{name:'article', params:{postid: item.id}}">
                  {{item.title}} 
@@ -86,11 +87,12 @@
                 <img :src="item.author.avatar_url" alt="个人头像">
               </a>
             </div>
-            <div class="scan-wrap">
-              <span class="review-count">2</span>
-              <span class="seperator">/</span>
-              <span class="scan-count">268</span>
-            </div>
+            <!-- 回复和浏览人数-->
+            <!--<div class="scan-wrap">-->
+              <!--<span class="review-count">{{getReplay(item.id)}}</span>-->
+              <!--<span class="seperator">/</span>-->
+              <!--<span class="scan-count">{{getVisit(item.id)}}</span>-->
+            <!--</div>-->
             <div class="post-wrap">
               <router-link :to="{name:'article', params:{postid: item.id}}">
                  {{item.title}} 
@@ -136,13 +138,30 @@ export default {
     },
     goGithub(account){
        window.open(`https://github.com/${account}`,'_blank')
+    },
+    getReplay(id){
+      let target = this.$store.state.allPosts.find( post => post.id === id)
+      if (target != null){
+        return target.reply_count
+      } else {
+        return 0
+      }
+    },
+    getVisit(id){
+      let target = this.$store.state.allPosts.find( post => post.id === id)
+      if (target != null){
+        return target.visit_count
+      } else {
+        return 0
+      }
     }
+
+
   },
   beforeMount(){
     this.isLoading = true
     this.getData()
   }
-
 
 }
 
@@ -279,8 +298,8 @@ body {
   border-radius: 3px;
 }
 .scan-wrap {
-  width: 70px;  
-  text-align: center; 
+  min-width: 70px;
+  text-align: center;
 }
 .review-count {
   color: #9e78c0;
@@ -297,6 +316,7 @@ body {
   align-self: center;
   flex-basis: 70%;
   flex:1;
+  margin-left: 10px;
 
   white-space: nowrap;
   text-overflow: ellipsis;

@@ -21,10 +21,11 @@
         <!-- 列表项 -->
         <li v-for= "pst in posts" class="post">
           <span class="author">
-            <a href="javascript:;">
+            <router-link :to="{name:'userInfo',params:{userName: pst.author.loginname}}">
               <img :src="pst.author.avatar_url" alt="author">
-            </a>
+            </router-link>
           </span>
+
           <span class="num">
             <span class="reply">{{pst.reply_count}}</span>
             <span class="seperator">/</span>
@@ -35,7 +36,7 @@
             {{pst | typemsg}}
           </span>
           <span class="title">
-            <router-link :to="{name: 'article', params:{postid: pst.id}}"> 
+            <router-link :to="{name: 'article', params:{postid: pst.id, name:pst.author.loginname}}">
               {{pst.title}}
             </router-link> 
           </span>
@@ -69,6 +70,8 @@ export default {
       }).then( (res) => {
         this.isLoading = false
         this.posts = res.data.data
+        // 存储首页的所有列表项
+        this.$store.commit('savePosts', this.posts)
 
       }).catch((err) => {
         console.log(err)

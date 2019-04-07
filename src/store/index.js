@@ -5,12 +5,14 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    count: 0
+    allPosts: []
    },
-
    mutations: {
-    increment (state) {
-      state.count++
+    savePosts(state, data) {
+      state.allPosts = data
     }
   }
+
 })
+
+export default  store
