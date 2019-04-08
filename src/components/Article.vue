@@ -115,6 +115,13 @@ export default {
   beforeMount(){
     this.isLoading = true
     this.getArticle()
+  },
+
+  // 检测路由参数的变化
+  watch: {
+    '$route' (to, from) {
+      this.getArticle()
+    }
   }
 
 }
