@@ -2,10 +2,14 @@
   <header class="header">
   	<div class="inner-wrap">
   		<div class="logo-wrap">
-  			<a href="javascript:;" class="logo">
-  				<img src="../assets/cnodejs_light.svg" alt="logo">
-  			</a>
+				 <router-link :to="{name:'root'}">
+            <span class="logo">
+							<img src="../assets/cnodejs_light.svg" alt="logo">
+						</span>
+          </router-link>
   		</div>
+
+			
   		<div class="lists">
   			<ul>
   				<li>

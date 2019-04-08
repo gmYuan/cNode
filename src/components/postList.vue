@@ -48,7 +48,7 @@
 
         <!-- 分页部分 -->
         <li class="pagination-wrap">
-          <Pagination></Pagination>
+          <Pagination @pageContent="showPage"></Pagination>
         </li> 
 
       </ul>
@@ -67,7 +67,8 @@ export default {
   data(){
     return {
       isLoading: false,
-      posts: []
+      posts: [],
+      postpage:1
     }
   },
   components:{
@@ -77,8 +78,10 @@ export default {
   methods: {
     getData(){
       this.$http.get('https://cnodejs.org/api/v1/topics', {
-        page: 1,
-        limit: 20
+        params:{
+          page: this.postpage,
+          limit: 20
+        }
       }).then( (res) => {
         this.isLoading = false
         this.posts = res.data.data
@@ -88,7 +91,12 @@ export default {
       }).catch((err) => {
         console.log(err)
       })
+    },
+    showPage(value){
+      this.postpage = value
+      this.getData();
     }
+    
   },
 
   beforeMount(){
