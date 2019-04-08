@@ -45,14 +45,23 @@
             {{pst.last_reply_at | seetime}}
           </span>   
         </li>
-       
+
+        <!-- 分页部分 -->
+        <li class="pagination-wrap">
+          <Pagination></Pagination>
+        </li> 
+
       </ul>
     </div>
+
 
   </div>
 </template>
 
 <script>
+
+import Pagination from './Pagination'
+
 export default {
   name: "postList",
   data(){
@@ -60,6 +69,9 @@ export default {
       isLoading: false,
       posts: []
     }
+  },
+  components:{
+    Pagination
   },
 
   methods: {
@@ -215,6 +227,17 @@ export default {
   font-size: 11px;
   color: #778087;
   white-space: nowrap;         
+}
+
+.pagination-wrap {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  min-height: 30.188px;
+
+  font-size: 14px;
+  line-height: 2em;
+  background: #fff;
 }
 
 </style>
