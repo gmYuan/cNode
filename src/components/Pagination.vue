@@ -74,8 +74,8 @@ export default {
   },  // 对应methods
 
   watch: {
-    currentIndex: function(){
-
+    currentIndex: function(newValue,oldValue){
+      this.$emit('pageContent', newValue)
     }
   }
 
